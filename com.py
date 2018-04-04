@@ -1,15 +1,7 @@
 #!/usr/bin/python
 
 ## Hopefully we can avoid disaster if we dont import this in a main program
-try:
-  config
-except NameError:
-  import config
-
-import MySQLdb
-import subprocess
 import os, shutil
-from getpass import getpass
 
 # Text output color definitions
 class color:
