@@ -51,15 +51,16 @@ def ConfigWrite():
 
 # Set up config values
 
-# MYSQL server config
-_IN_MYSQL_HOST_ = ConfigSectionMap("DB")['host']
-_IN_MYSQL_USR_ = ConfigSectionMap("DB")['user']
-_IN_MYSQL_PASS_ = ConfigSectionMap("DB")['password']
-_IN_MYSQL_DB_ = ConfigSectionMap("DB")['database']
-_IN_MYSQL_FILE_ = ConfigSectionMap("DB")['sqlconfigfile']
-_IN_MYSQL_PORT_ = ConfigSectionMap("DB")['port']
+class Settings:
+	# MYSQL server config
+	MYSQL_HOST_ = ConfigSectionMap("DB")['host']
+	MYSQL_USR_ = ConfigSectionMap("DB")['user']
+	MYSQL_PASS_ = ConfigSectionMap("DB")['password']
+	MYSQL_DB_ = ConfigSectionMap("DB")['database']
+	MYSQL_FILE_ = ConfigSectionMap("DB")['sqlconfigfile']
+	MYSQL_PORT_ = ConfigSectionMap("DB")['port']
 
-# Web Site config
-_IN_PHP_CONFIG_ = ConfigSectionMap("WEB")['phpconfigfile']
-_PHP_REPO_ = ConfigSectionMap("WEB")['phprepo']
-_WEB_ROOT_ = ConfigSectionMap("WEB")['webroot']
+	# Web Site config
+	PHP_CONFIG_ = ConfigSectionMap("WEB")['phpconfigfile']
+	PHP_REPO_ = ConfigSectionMap("WEB")['phprepo']
+	WEB_ROOT_ = ConfigSectionMap("WEB")['webroot']
