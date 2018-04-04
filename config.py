@@ -16,7 +16,7 @@
 import ConfigParser
 import os
 
-ConfigFile = "config.d/sdq.conf"
+ConfigFile = "config.d/conf"
 
 conf = ConfigParser.ConfigParser()
 conf.read(os.path.abspath(ConfigFile))
