@@ -14,6 +14,10 @@ class prog:
 	cp = ['cp', '/media/cw/Drew/Live_USB/scripts/rsync_exclude.conf', '/etc/rsync_exclude.conf']
 	ntfs = ['lowntfs-3g', '-o', 'windows_names,ignore_case']
 	cifs = ['mount.cifs', '-o', 'username=root,password=cw8400', '//nas/data', '/media/data']
+	findd = ['find', '', '-type', 'd']
+	findf = ['find', '', '-type', 'f']
+	mkdir = ['mkdir','-p', '']
+	ddr = ['ddrescue','--cluster-size=1024', '--skip-size=128s,1M', '--reopen-on-error', '--idirect', '--odirect', '--force', '--verbose', r'', r'']
 
 # class container for Ignore lists
 # TODO set up regex for these to avoid adding loop0 loop1...loopX
@@ -22,6 +26,32 @@ class ignore:
 	filesystems = ['iso9660', 'squashfs', 'crypto_LUKS', None, 'swap']
 	devices = ['sr0', 'sr1', 'loop0']
 	sn = ['C860008AE288B0B109030049']
+
+# List Filesystem Tree topdown
+def GetTree(path='/mnt'):
+	prog.findd[1]=path
+	find = Popen(prog.findd, stdout=PIPE, stderr=PIPE)
+	out, err = find.communicate()
+	return([s.strip() for s in out.splitlines()])
+
+def Rescue(oldfile, newfile):
+	prog.ddr[8] = oldfile
+	prog.ddr[9] = newfile
+	ddr = Popen(prog.ddr, stdout=PIPE, stderr=PIPE)
+	out, err = ddr.communicate()
+	print("ddrescue stdout = {}".format(out))
+	print("ddrescue stderr = {}".format(err))
+
+def GetFiles(path):
+	prog.findf[1]=path
+	find = Popen(prog.findf, stdout=PIPE, stderr=PIPE)
+	out, err = find.communicate()
+	return([s.strip() for s in out.splitlines()])
+
+def SetTree(path):
+	prog.mkdir[2] = path
+	mkdir = Popen(prog.mkdir, stdout=PIPE, stderr=PIPE)
+#	out, err = mkdir.communicate()
 
 # Print block file systems
 def listFileSystems():

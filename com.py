@@ -14,6 +14,9 @@ class color:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+def shellQoute(str):
+	return "'" + str.replace("'", "'\\''") + "'"
+
 # TODO Make sure that these directories exist before moving files around
 def mv(dir_src,dir_dst):
 	for file in os.listdir(dir_src):
