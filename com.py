@@ -17,7 +17,7 @@ class color:
 # TODO Make sure that these directories exist before moving files around
 def mv(dir_src,dir_dst):
 	for file in os.listdir(dir_src):
-		print("{}Installing: {}{}".format(color.HEADER,filecolor.END))
+		print("{}Installing: {}{}".format(color.HEADER,file,color.END))
 		src_file = os.path.join(dir_src, file)
 		dst_file = os.path.join(dir_dst, file)
 		shutil.copyfile(src_file, dst_file)
