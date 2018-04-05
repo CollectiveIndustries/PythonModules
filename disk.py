@@ -7,6 +7,7 @@ from subprocess import STDOUT,  PIPE, Popen, check_output, CalledProcessError
 import com
 
 
+
 class prog:
 	umount = ['umount']
 	lsblk = ['lsblk', '--json', '--noheadings', '-o', 'name,size,model,serial,fstype,label']
@@ -17,8 +18,8 @@ class prog:
 	findd = ['find', '', '-type', 'd']
 	findf = ['find', '', '-type', 'f']
 	mkdir = ['mkdir','-p', '']
-	ddr = ['ddrescue','--cluster-size=1024', '--skip-size=128s,1M', '--reopen-on-error', '--idirect', '--odirect', '--force', '--verbose', r'', r'']
-
+	ddr = ['ddrescue','--cluster-size=1024', '--skip-size=128s,1M', '--reopen-on-error', '--force', '--verbose', '', '']
+#	ddr = ['ddrescue', '','']
 # class container for Ignore lists
 # TODO set up regex for these to avoid adding loop0 loop1...loopX
 
@@ -35,12 +36,14 @@ def GetTree(path='/mnt'):
 	return([s.strip() for s in out.splitlines()])
 
 def Rescue(oldfile, newfile):
-	prog.ddr[8] = oldfile
-	prog.ddr[9] = newfile
-	ddr = Popen(prog.ddr, stdout=PIPE, stderr=PIPE)
-	out, err = ddr.communicate()
-	print("ddrescue stdout = {}".format(out))
-	print("ddrescue stderr = {}".format(err))
+	prog.ddr[6] = com.shellQoute(oldfile)
+	prog.ddr[7] = com.shellQoute(newfile)
+#	ddr = Popen(prog.ddr, stdout=PIPE, stderr=PIPE, shell=True)
+#	out, err = ddr.communicate()
+#	print("{}".format(" ".join(prog.ddr)))
+	return("{}".format(" ".join(prog.ddr)))
+#	print("ddrescue stdout = {}".format(out))
+#	print("ddrescue stderr = {}".format(err))
 
 def GetFiles(path):
 	prog.findf[1]=path
@@ -49,9 +52,11 @@ def GetFiles(path):
 	return([s.strip() for s in out.splitlines()])
 
 def SetTree(path):
-	prog.mkdir[2] = path
-	mkdir = Popen(prog.mkdir, stdout=PIPE, stderr=PIPE)
-#	out, err = mkdir.communicate()
+	prog.mkdir[2] = com.shellQoute(path)
+	try:
+		mkdir = check_output(prog.mkdir, stderr=PIPE, shell=True)
+	except CalledProcessError as e:
+		print("mkdir returned the following error: {}".format(str(e.output)))
 
 # Print block file systems
 def listFileSystems():
@@ -61,7 +66,6 @@ def listFileSystems():
 
 	try:
 		decoded = json.loads(out.decode("utf-8"))
-
 
 	# Access data
 		for x in decoded['blockdevices']:
