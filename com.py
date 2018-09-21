@@ -23,12 +23,6 @@ class _OS_(object):
         else: # well its not Windows we can just "clear"
             os.system("clear")
 
-    def Input(self, prompt):
-        if(self._type_ == "win32"):
-            return input(prompt)
-        elif(self._type_ == "debian"):
-            return raw_input(prompt)
-
     def Shutdown(self):
         if(_OS_._type_ == 'win32'):
             os.system('shutdown', '/s')
