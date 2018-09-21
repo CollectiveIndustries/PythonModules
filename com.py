@@ -2,6 +2,7 @@
 
 ## Hopefully we can avoid disaster if we dont import this in a main program
 import os, shutil
+from sys import platform
 
 ## OS Specific Stuff
 class _OS_(object):
