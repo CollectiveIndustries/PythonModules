@@ -24,16 +24,25 @@ class _OS_(object):
             os.system("clear")
 
     def Shutdown(self):
-        if(_OS_._type_ == 'win32'):
+        if(self._type_ == 'win32'):
             os.system('shutdown', '/s')
-        elif(_OS_._type_ == 'debian'):
+        elif(self._type_ == 'debian'):
             os.system('sudo shutdown -h')
 
     def Reboot(self):
-        if(_OS_._type_ == 'win32'):
+        if(self._type_ == 'win32'):
             os.system('shutdown', '/r')
-        elif(_OS_._type_ == 'debian'):
+        elif(self._type_ == 'debian'):
             os.system('sudo reboot')
+
+    def FormatName(self):
+        formatstring = "{}{}{}"
+        if(self._type_ == "win32"):
+            return formatstring.format(color.FAIL,self._type_,color.END)
+        elif(self._type_ == "debian"):
+            return formatstring.format(color.OKGREEN,self._type_,color.END)
+        else:
+            return formatstring.format(color.WARNING,self._type_,color.END)
 
      # TODO Make sure that these directories exist before moving files around
 #    def mv(dir_src,dir_dst):
