@@ -41,7 +41,11 @@ class _OS_(object):
                 self._type_ = oper[1].strip() # Grab OS release Name we want to know what flavor of lenny we use.
         elif(_SystemOS_ == 'win32'):
             self._type_ = _SystemOS_
-        
+
+    def ProgExists(self,program):
+        """Checks to see if a program is installed or not"""
+        return shutil.which(program) is not None
+
     def Clear(self):
         if(self._type_ == "win32"):
             os.system("cls")
