@@ -30,6 +30,7 @@ class switch(object):
 
 ## OS Specific Stuff
 class _OS_(object):
+    """Defines an OS environment to work with"""
     def __init__(self):
         _SystemOS_ = platform.strip()
         if (_SystemOS_ == 'linux' or _SystemOS_ == 'linux2'):
