@@ -43,14 +43,13 @@ class _OS_(object):
             self._type_ = _SystemOS_
 
     def ProgExists(self,package):
+        def ProgExists(self,package):
+        """Checks to see if a program is installed or not"""
         status = subprocess.getstatusoutput("dpkg-query -W -f='${Status}' " + package)
         if not status[0]:
             return '{}Installed{}'.format(color.OKGREEN,color.END) # package is installed
         else:
             return '{}Not Installed{}'.format(color.FAIL,color.END)
-        
-        """Checks to see if a program is installed or not"""
-        #return shutil.which(program) is not None
 
     def Clear(self):
         if(self._type_ == "win32"):
