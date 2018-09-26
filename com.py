@@ -43,7 +43,6 @@ class _OS_(object):
             self._type_ = _SystemOS_
 
     def ProgExists(self,package):
-        def ProgExists(self,package):
         """Checks to see if a program is installed or not"""
         status = subprocess.getstatusoutput("dpkg-query -W -f='${Status}' " + package)
         if not status[0]:
@@ -78,7 +77,7 @@ class _OS_(object):
         else:
             return formatstring.format(color.WARNING,self._type_,color.END)
 
-     # TODO Make sure that these directories exist before moving files around
+# TODO Make sure that these directories exist before moving files around
 #    def mv(dir_src,dir_dst):
 #        for file in os.listdir(dir_src):
 #            print("{}Installing: {}{}".format(color.HEADER,file,color.END))
