@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 ## Hopefully we can avoid disaster if we dont import this in a main program
-import os, shutil
+import os, shutil, subprocess
 from sys import platform
 
 # This class provides the functionality we want. You only need to look at
@@ -42,9 +42,15 @@ class _OS_(object):
         elif(_SystemOS_ == 'win32'):
             self._type_ = _SystemOS_
 
-    def ProgExists(self,program):
+    def ProgExists(self,package):
+        status = subprocess.getstatusoutput("dpkg-query -W -f='${Status}' " + package)
+        if not status[0]:
+            return '{}Installed{}'.format(color.OKGREEN,color.END) # package is installed
+        else:
+            return '{}Not Installed{}'.format(color.FAIL,color.END)
+        
         """Checks to see if a program is installed or not"""
-        return shutil.which(program) is not None
+        #return shutil.which(program) is not None
 
     def Clear(self):
         if(self._type_ == "win32"):
