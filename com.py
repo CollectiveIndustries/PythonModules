@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 ## Hopefully we can avoid disaster if we dont import this in a main program
 import os, shutil, subprocess
 from sys import platform
