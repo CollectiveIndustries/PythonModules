@@ -51,24 +51,28 @@ class _OS_(object):
             return '{}Not Installed{}'.format(color.FAIL,color.END)
 
     def Clear(self):
+        """Clear terminal screen"""
         if(self._type_ == "win32"):
             os.system("cls")
         else: # well its not Windows we can just "clear"
             os.system("clear")
 
     def Shutdown(self):
+        """Shut down system"""
         if(self._type_ == 'win32'):
             os.system('shutdown', '/s')
         elif(self._type_ == 'debian'):
             os.system('sudo shutdown -h')
 
     def Reboot(self):
+        """Reboot System"""
         if(self._type_ == 'win32'):
             os.system('shutdown', '/r')
         elif(self._type_ == 'debian'):
             os.system('sudo reboot')
 
     def FormatName(self):
+        """Return print ready string for OS name"""
         formatstring = "{}{}{}"
         if(self._type_ == "win32"):
             return formatstring.format(color.FAIL,self._type_,color.END)
@@ -77,18 +81,8 @@ class _OS_(object):
         else:
             return formatstring.format(color.WARNING,self._type_,color.END)
 
-# TODO Make sure that these directories exist before moving files around
-#    def mv(dir_src,dir_dst):
-#        for file in os.listdir(dir_src):
-#            print("{}Installing: {}{}".format(color.HEADER,file,color.END))
-#            src_file = os.path.join(dir_src, file)
-#            dst_file = os.path.join(dir_dst, file)
-#            shutil.copyfile(src_file, dst_file)
-
-            ## END OF _OS_ CLASS
-
-# Text output color definitions
 class color:
+    """Text output color definitions"""
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -99,4 +93,5 @@ class color:
     UNDERLINE = '\033[4m'
 
 def shellQoute(str):
-	return "'" + str.replace("'", "'\\''") + "'"
+    """Return a shell qouted string"""
+    return "'" + str.replace("'", "'\\''") + "'"
