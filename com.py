@@ -42,6 +42,8 @@ class _OS_(object):
 
     def ProgExists(self,package):
         """Checks to see if a program is installed or not"""
+        # TODO move this over to aptitude so we can call a list of packages and see if ours is installed
+        # https://www.tecmint.com/difference-between-apt-and-aptitude/
         status = subprocess.getstatusoutput("dpkg-query -W -f='${Status}' " + package)
         if not status[0]:
             return '{}Installed{}'.format(color.OKGREEN,color.END) # package is installed
